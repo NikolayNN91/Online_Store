@@ -1,4 +1,4 @@
-package com.ardecs.Online_Store;
+package com.ardecs.onlinestore;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

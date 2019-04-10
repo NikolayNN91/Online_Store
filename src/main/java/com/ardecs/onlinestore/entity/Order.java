@@ -1,10 +1,10 @@
-package com.ardecs.entity;
+package com.ardecs.onlinestore.entity;
 
-import lombok.Data;
+//import lombok.Data;
 
 import java.util.Date;
 
-@Data
+//@Data
 public class Order {
 
     private int id;

@@ -1,8 +1,8 @@
-package com.ardecs.entity;
+package com.ardecs.onlinestore.entity;
 
-import lombok.Data;
+//import lombok.Data;
 
-@Data
+//@Data
 public class Product {
 
     private int id;
