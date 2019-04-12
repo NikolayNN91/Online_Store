@@ -1,14 +1,33 @@
 package com.ardecs.onlinestore.entity;
 
-//import lombok.Data;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
-//@Data
+import javax.persistence.*;
+import java.util.Set;
+
+@Data
+//@Component
+@Entity
+@Table(name = "Products")
 public class Product {
 
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "price")
     private int price;
+
+    @Column(name = "manufacturer")
     private String manufacturer;
-    private int amountOfProducts;
+
+    @Column(name = "amount_of_product")
+    private int amountOfProduct;
+
+    public Product() {}
 
 }
