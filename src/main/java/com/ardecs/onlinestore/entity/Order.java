@@ -14,19 +14,19 @@ import java.util.Set;
 public class Order {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(name = "price")
+    @Column(name = "sum_price")
     private int price;
 
     @Column(name = "date")
     private Date date;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Orders_details",
                 joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))

@@ -13,8 +13,8 @@ import java.util.Set;
 public class Product {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "type")
     private String type;
