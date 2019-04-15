@@ -17,9 +17,15 @@
 		<li><a href="/admin">Administration</a></li>
 	</ul>
 	<h1>
-	Home
+	    Home
 	</h1>
-<a href="/product">Product#1</a>
+
+    <c:forEach items="${productList}" var="product">
+        <a href="/product?id=${product.id}">${product.type}</a>
+        <br>
+        ${product.price}
+        <br><br>
+    </c:forEach>
 
 
 </body>

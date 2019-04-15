@@ -17,7 +17,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import java.util.Properties;
 
-
+//
 @EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
 @Configuration
 public class AppConfig {

@@ -1,5 +1,6 @@
 package com.ardecs.onlinestore;
 
+import com.ardecs.onlinestore.controller.HomeController;
 import com.ardecs.onlinestore.entity.Order;
 import com.ardecs.onlinestore.entity.Product;
 import com.ardecs.onlinestore.entity.User;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.Set;
 
 
 @SpringBootApplication
+@ComponentScan(basePackageClasses= HomeController.class)
 public class OnlineStoreApplication {
 
     public static void main(String[] args) {
