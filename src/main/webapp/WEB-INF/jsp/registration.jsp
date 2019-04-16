@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,29 +22,42 @@
 	<h1>
 	Registration
 	</h1>
-	<form action="registration" method="post" id="registration-form">
+
+    <spring:form action="registration" method="post" modelAttribute="user">
+        <fieldset>
+            <p align=center>
+                    Login:<br>
+                    <spring:input path="User.login" placeholder="Введите логин"/>
+                    <spring:errors path="User.login"/>
+                </p>
+
+                <br>
+
+                <p align=center>
+                    User password:<br>
+                    <input type="password" name="password" placeholder="Введите пароль"/>
+                </p>
+
+
+                <p align=center>
+                    Name:<br>
+                    <input type="text" name="name" placeholder="Введите никнейм">
+                </p>
+
+                <br><br>
+                <div align=center>
+                    <input type="submit" value="Submit">
+                </div>
+			</fieldset>
+            <br>
 			<p align=center>
-				Login:<br>
-				<input type="text" name="login">
+			${errorMessage}
 			</p>
-			<br>
-			<p align=center>
-				User password:<br>
-				<input type="password" name="password">
-			</p>
-			<p align=center>
-				Name:<br>
-				<input type="text" name="name">
-			</p>
+
+
+
 			<br><br>
-			<p align=center>
-				<input type="submit" value="Submit">
-			</p>
-			<c:forEach var="error" items="${error}">
-			${error.defaultMessage}<br>
-			</c:forEach>
-			<br><br>
-		</form>
+		</spring:form>
 
 </body>
 </html>
