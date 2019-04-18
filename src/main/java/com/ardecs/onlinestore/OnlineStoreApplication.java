@@ -10,6 +10,7 @@ import com.ardecs.onlinestore.repository.UserJpaRepository;
 import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -19,8 +20,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@SpringBootApplication
-@ComponentScan(basePackageClasses= HomeController.class)
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+//@ComponentScan(basePackageClasses= HomeController.class)
+@ComponentScan(basePackages = "com.ardecs.onlinestore.controller")
 public class OnlineStoreApplication {
 
     public static void main(String[] args) {

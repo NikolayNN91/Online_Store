@@ -30,21 +30,21 @@ public class AuthController {
 
     @PostMapping("/authorization")
     public ModelAndView authorizationUser(@ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView("redirect:authorization");
-        User userDB = userJpaRepository.findByLogin(user.getLogin());
-        if(!Objects.isNull(user)) {
-            if (userDB.getPassword().equals(user.getPassword())) {
-                if(userDB.getIsAdmin()==0) {
-                    modelAndView.setViewName("redirect:home");
-                } else {
-                    modelAndView.setViewName("redirect:admin");
-                }
-            } else {
-                modelAndView.addObject("passwordMessage", "Неверный пароль или логин");
-            }
-        } else {
-            modelAndView.addObject("loginMessage", "Неверный логин");
-        }
+        ModelAndView modelAndView = new ModelAndView();
+//        User userDB = userJpaRepository.findByLogin(user.getLogin());
+//        if(!Objects.isNull(user)) {
+//            if (userDB.getPassword().equals(user.getPassword())) {
+//                if(userDB.getIsAdmin()==0) {
+//                    modelAndView.setViewName("redirect:home");
+//                } else {
+//                    modelAndView.setViewName("redirect:admin");
+//                }
+//            } else {
+//                modelAndView.addObject("passwordMessage", "Неверный пароль или логин");
+//            }
+//        } else {
+//            modelAndView.addObject("loginMessage", "Неверный логин");
+//        }
         return modelAndView;
     }
 

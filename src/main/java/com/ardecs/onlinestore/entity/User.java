@@ -37,4 +37,10 @@ public class User {
     public User() {
     }
 
+    public User(String login, String password, String name, byte isAdmin) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.isAdmin = isAdmin;
+    }
 }
