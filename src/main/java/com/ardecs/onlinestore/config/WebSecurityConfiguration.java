@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.WebApplicationInitializer;
@@ -42,10 +43,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //    private DataSource dataSource;
 
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    @Autowired
+    protected void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsService());
+//        auth.userDetailsService(userDetailsService);
+
 //auth.authenticationProvider(authenticationProvider());
 //        auth.
 //        auth    .jdbcAuthentication()
@@ -57,8 +59,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .passwordEncoder(passwordEncoder());
 //
 
-//        auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
+        auth.inMemoryAuthentication()
+                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER");
 //                .and()
 //                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
 //                .and()
@@ -67,11 +69,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http    .csrf().disable()
+        http    //.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("1")
-                .antMatchers("/myBasket").hasRole("0")
                 .antMatchers("/home", "/registration", "/product", "/contacts").permitAll()
+                .antMatchers("/admin/**").hasRole("1")
+                //.antMatchers("/myBasket").hasRole("0")
                 .anyRequest().authenticated()
                 .and()
 
@@ -107,28 +109,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     //
-    @Service
-    public class CustomUserDetailService implements UserDetailsService {
-
-        @Autowired
-        UserJpaRepository userJpaRepository;
-
-        @Override
-        @Bean
-        public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-            User user = userJpaRepository.findByLogin(login);
-            if (user == null) {
-                throw new RuntimeException("Not exist user with login: " + login);
-            }
-            return new org.springframework.security.core.userdetails.User(
-                    user.getLogin(),
-                    user.getPassword(),
-                    AuthorityUtils.commaSeparatedStringToAuthorityList("" + user.getIsAdmin())
-            );
-//                return new CustomUserDetails(user);
-
-        }
-    }
+//    @Component
+//    public class CustomUserDetailService implements UserDetailsService {
+//
+//        @Autowired
+//        UserJpaRepository userJpaRepository;
+//
+//        @Override
+//        public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+//            User user = userJpaRepository.findByLogin(login);
+//            if (user == null) {
+//                throw new RuntimeException("Not exist user with login: " + login);
+//            }
+//            return new org.springframework.security.core.userdetails.User(
+//                    user.getLogin(),
+//                    user.getPassword(),
+//                    AuthorityUtils.commaSeparatedStringToAuthorityList("" + user.getIsAdmin())
+//            );
+////                return new CustomUserDetails(user);
+//
+//        }
+//    }
 
 //    @Service
 //    public class CustomUserDetails extends User implements UserDetails {

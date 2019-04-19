@@ -15,7 +15,7 @@
 //
 //    @Override
 //    protected Class<?>[] getServletConfigClasses() {
-//        return new Class[] {WebSecurityConfiguration.class};
+//        return new Class[] {WebConfig.class};
 //    }
 //
 //    @Override

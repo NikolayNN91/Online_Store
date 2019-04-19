@@ -29,6 +29,13 @@ public class HomeController {
         modelAndView.setViewName("home");
         return modelAndView;
     }
+   //todo
+    @GetMapping("/test")
+    public ModelAndView getTest(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("test");
+        return modelAndView;
+    }
 
     @GetMapping("/myBasket")
     public ModelAndView getBasketPage(){

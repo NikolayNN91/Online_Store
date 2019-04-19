@@ -21,7 +21,6 @@ import java.util.Set;
 
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-//@ComponentScan(basePackageClasses= HomeController.class)
 @ComponentScan(basePackages = "com.ardecs.onlinestore.controller")
 public class OnlineStoreApplication {
 
