@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +22,8 @@ import java.util.Set;
 
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan(basePackages = "com.ardecs.onlinestore.controller")
+@ComponentScan(basePackages = "com.ardecs.onlinestore")
+@EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
 public class OnlineStoreApplication {
 
     public static void main(String[] args) {
@@ -31,7 +33,8 @@ public class OnlineStoreApplication {
 //     ProductJpaRepository productJpaRepository = context.getBean(ProductJpaRepository.class);
 //     OrderJpaRepository orderJpaRepository = context.getBean(OrderJpaRepository.class);
 //
-//
+//User user = userJpaRepository.findByLogin("login7");
+//        System.out.println(user.getPassword());
 //        User user = new User();
 //        user.setLogin("login2");
 //        user.setPassword("password2");

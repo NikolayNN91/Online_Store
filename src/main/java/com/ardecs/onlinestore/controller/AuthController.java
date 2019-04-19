@@ -3,6 +3,7 @@ package com.ardecs.onlinestore.controller;
 import com.ardecs.onlinestore.entity.User;
 import com.ardecs.onlinestore.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ public class AuthController {
     @Autowired
     UserJpaRepository userJpaRepository;
 
+
     @GetMapping("/authorization")
     public ModelAndView getAuthorizationPage() {
         ModelAndView modelAndView = new ModelAndView("authorization");
@@ -31,20 +33,7 @@ public class AuthController {
     @PostMapping("/authorization")
     public ModelAndView authorizationUser(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView();
-//        User userDB = userJpaRepository.findByLogin(user.getLogin());
-//        if(!Objects.isNull(user)) {
-//            if (userDB.getPassword().equals(user.getPassword())) {
-//                if(userDB.getIsAdmin()==0) {
-//                    modelAndView.setViewName("redirect:home");
-//                } else {
-//                    modelAndView.setViewName("redirect:admin");
-//                }
-//            } else {
-//                modelAndView.addObject("passwordMessage", "Неверный пароль или логин");
-//            }
-//        } else {
-//            modelAndView.addObject("loginMessage", "Неверный логин");
-//        }
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 

@@ -1,26 +1,26 @@
-package com.ardecs.onlinestore.config;
-
-import com.ardecs.onlinestore.repository.UserJpaRepository;
-import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
-import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-
-import java.util.Properties;
-
+//package com.ardecs.onlinestore.config;
 //
-@EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
-@Configuration
-public class AppConfig {
+//import com.ardecs.onlinestore.repository.UserJpaRepository;
+//import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
+//import org.hibernate.jpa.HibernatePersistenceProvider;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.boot.context.properties.ConfigurationProperties;
+//import org.springframework.boot.jdbc.DataSourceBuilder;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.PropertySource;
+//import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+//import org.springframework.jdbc.datasource.DriverManagerDataSource;
+//import org.springframework.orm.jpa.JpaTransactionManager;
+//import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+//import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+//
+//import java.util.Properties;
+//
+////
+//@EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
+//@Configuration
+//public class AppConfig {
 
 //    @Value("${app.datasource.username}")
 //    String username;
@@ -62,4 +62,4 @@ public class AppConfig {
 //        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 //        return jpaTransactionManager;
 //    }
-}
+//}

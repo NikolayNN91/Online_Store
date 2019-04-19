@@ -29,13 +29,6 @@ public class HomeController {
         modelAndView.setViewName("home");
         return modelAndView;
     }
-   //todo
-    @GetMapping("/test")
-    public ModelAndView getTest(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("test");
-        return modelAndView;
-    }
 
     @GetMapping("/myBasket")
     public ModelAndView getBasketPage(){
@@ -43,13 +36,6 @@ public class HomeController {
         modelAndView.setViewName("myBasket");
         return modelAndView;
     }
-
-//    @GetMapping("/product")
-//    public ModelAndView getProductPage(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("product");
-//        return modelAndView;
-//    }
 
     @GetMapping("/product")
     public ModelAndView getProductPage(@RequestParam("id") int id){
