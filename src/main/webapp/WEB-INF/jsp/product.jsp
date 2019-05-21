@@ -20,5 +20,15 @@
         <p>Manufacturer: ${product.getManufacturer()};</p>
         <p>Amount on stock: ${product.getAmountOfProduct()};</p>
 
+        <div>
+        	<form method="POST" action="myBasket?id=${product.getId()}">
+                <fieldset>
+                    <div align=center>
+                        <button id="addInBasket">Добавить в корзину</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
     </body>
 </html>

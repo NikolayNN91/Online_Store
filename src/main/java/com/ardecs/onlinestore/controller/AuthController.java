@@ -1,10 +1,14 @@
 package com.ardecs.onlinestore.controller;
 
+import com.ardecs.onlinestore.config.WebSecurityConfiguration;
 import com.ardecs.onlinestore.entity.User;
 import com.ardecs.onlinestore.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Objects;
 
@@ -22,18 +27,26 @@ public class AuthController {
     @Autowired
     UserJpaRepository userJpaRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    WebSecurityConfiguration.CustomUserDetailService userDetailsService;
+
 
     @GetMapping("/authorization")
     public ModelAndView getAuthorizationPage() {
+        System.out.println("********************************************** GET ******************************************");
         ModelAndView modelAndView = new ModelAndView("authorization");
         modelAndView.addObject("user", new User());
         return modelAndView;
     }
-
+//
     @PostMapping("/authorization")
-    public ModelAndView authorizationUser(@ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("user", user);
+    public ModelAndView authorizationUser(User user) {
+            System.out.println("********************************************** POST ******************************************");
+        ModelAndView modelAndView = new ModelAndView("redirect:home");
+//////        //modelAndView.addObject("user", user);
         return modelAndView;
     }
 
@@ -46,19 +59,33 @@ public class AuthController {
 
     @PostMapping("/registration")
     public ModelAndView registrationUser(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView("redirect:authorization");
+        ModelAndView modelAndView = new ModelAndView("redirect:home");
 
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("errorMessage", "Ошибка при регистрации, повторите попытку");
             modelAndView.setViewName("registration");
 
-//            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-//            System.out.println(((BeanPropertyBindingResult) bindingResult.getModel().get("org.springframework.validation.BindingResult.user")).getFieldErrors().get(1).getDefaultMessage() + "*****************");
-//            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
         } else {
-            userJpaRepository.save(user);
+            {
+                String encoderPassword = passwordEncoder.encode(user.getPassword());
+
+                if (userJpaRepository.existsById(user.getLogin())) {
+                    throw new IllegalArgumentException("User already registered");
+                }
+
+                userJpaRepository.save(user);
+                userJpaRepository.updatePasswordByLogin(encoderPassword, user.getLogin());
+            }
+
         }
+        return modelAndView;
+    }
+
+    @GetMapping("/logout")
+    public ModelAndView getLogout() {
+        ModelAndView modelAndView = new ModelAndView("redirect:authorization");
+        //todo - оборвать сессию
+        modelAndView.addObject("user", new User());
         return modelAndView;
     }
 

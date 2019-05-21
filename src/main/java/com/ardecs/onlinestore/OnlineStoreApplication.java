@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,13 +22,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication//(exclude = { SecurityAutoConfiguration.class })
 @ComponentScan(basePackages = "com.ardecs.onlinestore")
 @EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
 public class OnlineStoreApplication {
 
     public static void main(String[] args) {
      ConfigurableApplicationContext context = SpringApplication.run(OnlineStoreApplication.class, args);
+
 
 //     UserJpaRepository userJpaRepository = context.getBean(UserJpaRepository.class);
 //     ProductJpaRepository productJpaRepository = context.getBean(ProductJpaRepository.class);

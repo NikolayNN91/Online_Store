@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ include file="head.jsp" %>
 	<h1>
-	    Home
+	    Hello, ${user.getName()}!
 	</h1>
 
     <c:forEach items="${productList}" var="product">

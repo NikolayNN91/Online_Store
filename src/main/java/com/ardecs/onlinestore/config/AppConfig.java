@@ -7,7 +7,10 @@
 //import org.springframework.boot.context.properties.ConfigurationProperties;
 //import org.springframework.boot.jdbc.DataSourceBuilder;
 //import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 //import org.springframework.context.annotation.PropertySource;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -21,6 +24,7 @@
 //@EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
 //@Configuration
 //public class AppConfig {
+
 
 //    @Value("${app.datasource.username}")
 //    String username;

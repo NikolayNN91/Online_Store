@@ -2,6 +2,7 @@ package com.ardecs.onlinestore.config;
 
 import com.ardecs.onlinestore.entity.User;
 import com.ardecs.onlinestore.repository.UserJpaRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,15 +40,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-//    @Autowired
-//    private DataSource dataSource;
-
-
+    @Autowired
+    private CurrentUser currentUser;
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
 //auth.authenticationProvider(authenticationProvider());
 //        auth.
@@ -61,26 +60,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //
 
 //        auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("1");
-//                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
+//                .withUser("login").password("password").roles("1");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http    .csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/home", "/registration", "/product", "/contacts").permitAll()
-                .antMatchers("/admin/**").hasRole("1")
-                .antMatchers("/myBasket").hasRole("0")
+                .antMatchers("/", "/admin", "/home", "/registration", "/product", "/contacts", "/css/**", "/admin/**", "/myBasket", "/myBasket/**").permitAll()
+//                .antMatchers("/admin/**").hasRole("1")
+//                .antMatchers("/myBasket").hasAnyRole()
                 .anyRequest().authenticated()
                 .and()
 
                 .formLogin()
-                .loginPage("/authorization")
-                .successForwardUrl("/home")
+                //.loginPage("/login")
+//                .loginPage("/authorization")
+//                .successForwardUrl("/home")
                 .permitAll()
                 .and()
 
@@ -95,82 +91,47 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-//    @Bean
-//    public DaoAuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider authProvider
-//                = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService);
-////        authProvider.setPasswordEncoder(encoder());
-//        return authProvider;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //
+
     @Component
     public class CustomUserDetailService implements UserDetailsService {
+
+        private User user;
 
         @Autowired
         UserJpaRepository userJpaRepository;
 
+        public User getCurrentUser() {
+            return user;
+        }
+
         @Override
         public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-            User user = userJpaRepository.findByLogin(login);
+            user = userJpaRepository.findByLogin(login);
             if (user == null) {
                 throw new RuntimeException("Not exist user with login: " + login);
             }
+            currentUser.setUser(user);
             return new org.springframework.security.core.userdetails.User(
                     user.getLogin(),
                     user.getPassword(),
                     AuthorityUtils.commaSeparatedStringToAuthorityList("" + user.getIsAdmin())
             );
-//                return new CustomUserDetails(user);
-
         }
     }
 
-//    @Service
-//    public class CustomUserDetails extends User implements UserDetails {
-//
-//        public CustomUserDetails(User user) {
-//            super(user.getLogin(), user.getPassword(), user.getName(), user.getIsAdmin());
-//        }
-//
-//        @Override
-//        @Bean
-//        public Collection<GrantedAuthority> getAuthorities() {
-//            String roles = "" + getIsAdmin();
-//            return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
-//        }
-//
-//        @Override
-//        public String getUsername() {
-//            return super.getLogin();
-//        }
-//
-//        @Override
-//        public boolean isAccountNonExpired() {
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean isAccountNonLocked() {
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean isCredentialsNonExpired() {
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean isEnabled() {
-//            return true;
-//        }
-//
-//    }
+    @Component
+    @Data
+    public class CurrentUser {
+
+        private User user;
+
+    }
 }
+
 

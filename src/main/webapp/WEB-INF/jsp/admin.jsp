@@ -10,14 +10,22 @@
 <body>
 	<ul class='list' style='list-style-type:none'>
 		<li><a href="/admin">Administration</a></li>
-		<li><a href="/product_change">Change products or add products</a></li>
+		<li><a href="/product_change">Add products</a></li>
+		<li><a href="/product_update">Change products</a></li>
 		<li><a href="/orders">Orders</a></li>
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/home">Home</a></li>
 	</ul>
 	<h1>
-Admin-page
+"${hello}"
 	</h1>
+	<br>
+    <c:forEach items="${productList}" var="product">
+        <a href="/product?id=${product.id}">${product.type}</a>
+        <br>
+        ${product.price}
+        <br><br>
+    </c:forEach>
 
 
 </body>

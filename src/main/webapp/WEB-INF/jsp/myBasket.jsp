@@ -16,9 +16,13 @@
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/admin">Administration</a></li>
 	</ul>
-		<h1>
-    	My Basket
-    	</h1>
+    <h1>
+        My Basket
+    </h1>
+    <c:forEach items="${productList}" var="product">
+        <a href="/product?id=${product.id}">Name: ${product.type}: Price: ${product.price} Manufacturer: ${product.manufacturer}</a>
+        <br>
+    </c:forEach>
 
 
 </body>
