@@ -10,15 +10,18 @@
 <body>
 	<ul class='list' style='list-style-type:none'>
 	    <li><a href="/admin">Administration</a></li>
-		<li><a href="/order/${order.getId}">Order: ${order.getId}</a></li>
+	    <li><a href="/admin/orders">Orders</a></li>
+		<li><a href="/order/${order.getId()}">Order: ${order.getId()}</a></li>
 	</ul>
+
 	<h1>
         Order: ${order.getId()}
 	</h1>
+
 	<div>
-        Price: ${order.getPrice()}
-        Date: ${order.getDate()}
-        UserID: ${order.getUser().getId}
+        Price: ${order.getPrice()} <br>
+        Date: ${order.getDate()} <br>
+        User Login: ${order.getUser().getLogin()}
 	</div>
 
 	<form method="DELETE" action="order/${order.getId()}">

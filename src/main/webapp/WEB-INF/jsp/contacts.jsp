@@ -16,9 +16,16 @@
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/admin">Administration</a></li>
 	</ul>
+
 	<h1>
-	Contacts
+	    Contacts
 	</h1>
+
+	<div>
+	    Мы находимся: г.Такой-то, ул. Такая-то, д.№ <br>
+	    Телефон: +7-000-000-00-00 <br>
+	    E-mail: takoyto@takoyto.com <br>
+	</div>
 
 
 </body>

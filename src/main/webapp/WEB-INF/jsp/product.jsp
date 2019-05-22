@@ -16,7 +16,7 @@
         <br>
         <img src="https://hyperpc.ru/images/product/gaming-notebook/extreme/asus/rog_g703vi/main/laptop-detail-asus-rog-g703vi.jpg" alt="Foto of product" width="270" height="200" />
         <br>
-        <p>Price: ${product.getPrice()} $;</p>
+        <p>Price: ${product.getPrice()};</p>
         <p>Manufacturer: ${product.getManufacturer()};</p>
         <p>Amount on stock: ${product.getAmountOfProduct()};</p>
 

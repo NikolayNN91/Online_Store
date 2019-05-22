@@ -4,6 +4,8 @@ import com.ardecs.onlinestore.entity.Order;
 import com.ardecs.onlinestore.entity.Product;
 import com.ardecs.onlinestore.repository.OrderJpaRepository;
 import com.ardecs.onlinestore.repository.ProductJpaRepository;
+import com.ardecs.onlinestore.service.OrderService;
+import com.ardecs.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +19,16 @@ import java.util.Optional;
 public class AdminController {
 
     @Autowired
-    OrderJpaRepository orderJpaRepository;
+    OrderService orderService;
 
     @Autowired
-    ProductJpaRepository productJpaRepository;
+    ProductService productService;
 
     @GetMapping
     public ModelAndView getAdminPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("hello", "Здравствуй, Хозяин!");
-        List<Product> productList = productJpaRepository.findAll();
+        modelAndView.addObject("hello", "Привет, Хозяин!");
+        List<Product> productList = productService.findAll();
         modelAndView.addObject(productList);
         modelAndView.setViewName("admin");
         return modelAndView;
@@ -35,50 +37,57 @@ public class AdminController {
     @GetMapping("/orders")
     public ModelAndView getOrdersPage() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Order> orders = orderJpaRepository.findAll();
-        modelAndView.addObject(orders);
+        List<Order> orders = orderService.findAll();
+        modelAndView.addObject("orders", orders);
         modelAndView.setViewName("orders");
         return modelAndView;
     }
 
     @GetMapping("/order")
     public ModelAndView getOrderPage(@RequestParam("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        Optional<Order> order = orderJpaRepository.findById(id);
-        modelAndView.addObject("order", order.get());
-        modelAndView.setViewName("order");
+        ModelAndView modelAndView = new ModelAndView("order");
+        Order order = orderService.findById(id);
+        modelAndView.addObject("order", order);
         return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/order")
     public ModelAndView closeOrder(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        orderJpaRepository.deleteById(id);
+        orderService.deleteById(id);
         modelAndView.addObject("message", "Заказ обработан и удален из базы данных");
         modelAndView.setViewName("order");
         return modelAndView;
     }
 
-    @GetMapping("/product_change")
-    public ModelAndView getProductChangePage() {
+    @GetMapping("/product_add")
+    public ModelAndView getProductAddPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("product_change");
+        modelAndView.setViewName("product_add");
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/product_change")
+    @GetMapping("/product_update")
+    public ModelAndView getProductChangePage(@RequestParam("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("id", id);
+        modelAndView.setViewName("product_update");
+        return modelAndView;
+    }
+
+    @PostMapping("/product_add")
     public ModelAndView productAdd(Product product) {
         ModelAndView modelAndView = new ModelAndView();
-        productJpaRepository.save(product);
+        productService.save(product);
         modelAndView.addObject("message", "Новый продукт добавлен в общий список продуктов");
-        modelAndView.setViewName("product_change");
+        modelAndView.setViewName("redirect:product?id={product.getId()}");
         return modelAndView;
     }
 
     @PostMapping("/product_update")
     public ModelAndView productChange(Product product) {
         ModelAndView modelAndView = new ModelAndView();
-        productJpaRepository.save(product);
+        productService.save(product);
         modelAndView.addObject("message", "Продукт" + product.getId() + "обновлен");
         modelAndView.setViewName("product_update");
         return modelAndView;

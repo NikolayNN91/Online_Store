@@ -3,6 +3,7 @@ package com.ardecs.onlinestore.controller;
 import com.ardecs.onlinestore.config.WebSecurityConfiguration;
 import com.ardecs.onlinestore.entity.User;
 import com.ardecs.onlinestore.repository.UserJpaRepository;
+import com.ardecs.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +27,7 @@ public class AuthController {
 
     @Autowired
     UserJpaRepository userJpaRepository;
+    UserService userService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -73,8 +75,8 @@ public class AuthController {
                     throw new IllegalArgumentException("User already registered");
                 }
 
-                userJpaRepository.save(user);
-                userJpaRepository.updatePasswordByLogin(encoderPassword, user.getLogin());
+                userService.save(user);
+                userService.updatePasswordByLogin(encoderPassword, user.getLogin());
             }
 
         }

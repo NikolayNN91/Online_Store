@@ -10,9 +10,9 @@
 <body>
 	<ul class='list' style='list-style-type:none'>
 		<li><a href="/admin">Administration</a></li>
-		<li><a href="/product_change">Add products</a></li>
-		<li><a href="/product_update">Change products</a></li>
-		<li><a href="/orders">Orders</a></li>
+		<li><a href="/admin/product_add">Add products</a></li>
+		<li><a href="/admin/product_update">Change products</a></li>
+		<li><a href="/admin/orders">Orders</a></li>
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/home">Home</a></li>
 	</ul>
@@ -20,37 +20,29 @@
 Change products or add products
 	</h1>
 
-	<form method="POST" action="add">
+	<form method="POST" action="update">
         <fieldset>
+            <input type="hidden" value="${id}" name="id"/>
             <div align=center>
                 Наименование продукта:<br>
                 <input type="text" name="type" placeholder="Введите наименование продукта"/><br>
             </div><br>
             <div align=center>
                 Цена:<br>
-                <input type="text" name="type" placeholder="Введите стоимость продукта"/><br>
+                <input type="text" name="price" placeholder="Введите стоимость продукта"/><br>
             </div><br>
             <div align=center>
                 Количество на складе:<br>
-                <input type="text" name="type" placeholder="Введите количество продукта"/><br>
+                <input type="text" name="amountOfProduct" placeholder="Введите количество продукта"/><br>
             </div><br>
             <div align=center>
                 Производитель:<br>
-                <input type="text" name="type" placeholder="Введите производителя продукта"/><br>
+                <input type="text" name="manufacturer" placeholder="Введите производителя продукта"/><br>
             </div><br>
             <div align=center>
-                Описание:<br>
-                <input type="text" name="type" placeholder="Введите описание продукта"/><br>
-            </div><br>
-
-            <div align=center>
-                <button id="add">Add product</button>
+                <button id="update">Update product</button>
             </div>
-
         </fieldset>
-
     </form>
-
-
 </body>
 </html>

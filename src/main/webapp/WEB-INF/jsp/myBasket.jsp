@@ -19,10 +19,29 @@
     <h1>
         My Basket
     </h1>
+    <div align=center>
+        ${successMessage}
+    </div>
     <c:forEach items="${productList}" var="product">
-        <a href="/product?id=${product.id}">Name: ${product.type}: Price: ${product.price} Manufacturer: ${product.manufacturer}</a>
-        <br>
-    </c:forEach>
+        <a href="/product?id=${product.id}">Name: ${product.type}</a><br>
+                                            Price: ${product.price} <br>
+                                            Manufacturer: ${product.manufacturer}<br>
+    </c:forEach><br>
+
+    <div align=center>
+        ${errorMessage}
+    </div>
+    <div>
+        <form method="POST" action="myBasket">
+            <fieldset>
+                 <input type="hidden" value="${productList}" name="productList" />
+                 <input type="hidden" value="${user}" name="user" />
+                <div align=center>
+                    <button id="pay">Оплатить</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 
 
 </body>

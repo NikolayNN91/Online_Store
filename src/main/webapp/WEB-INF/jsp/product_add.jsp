@@ -10,17 +10,17 @@
 <body>
 	<ul class='list' style='list-style-type:none'>
 		<li><a href="/admin">Administration</a></li>
-		<li><a href="/product_change">Add products</a></li>
-		<li><a href="/product_update">Change products</a></li>
-		<li><a href="/orders">Orders</a></li>
+		<li><a href="/admin/product_add">Add products</a></li>
+		<li><a href="/admin/product_update">Change products</a></li>
+		<li><a href="/admin/orders">Orders</a></li>
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/home">Home</a></li>
 	</ul>
 	<h1>
-Change products or add products
+        Add products
 	</h1>
 
-	<form method="POST" action="add">
+	<form method="POST" action="product_add">
         <fieldset>
             <div align=center>
                 Наименование продукта:<br>
@@ -37,10 +37,6 @@ Change products or add products
             <div align=center>
                 Производитель:<br>
                 <input type="text" name="type" placeholder="Введите производителя продукта"/><br>
-            </div><br>
-            <div align=center>
-                Описание:<br>
-                <input type="text" name="type" placeholder="Введите описание продукта"/><br>
             </div><br>
 
             <div align=center>
