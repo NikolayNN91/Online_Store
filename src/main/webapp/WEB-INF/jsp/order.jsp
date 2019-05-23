@@ -24,8 +24,9 @@
         User Login: ${order.getUser().getLogin()}
 	</div>
 
-	<form method="DELETE" action="order/${order.getId()}">
+	<form method="POST" action="order">
                 <fieldset>
+                    <input type="hidden" value="${order.getId()}" name="id" />
                     <div align=center>
                         <button id="closeOrder">Закрыть заказ</button>
                     </div>

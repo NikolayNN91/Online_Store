@@ -36,9 +36,6 @@ public class HomeController {
     private OrderService orderService;
 
     @Autowired
-    private WebSecurityConfiguration.CurrentUser currentUser;
-
-    @Autowired
     private BasketService basketService;
 
     @Autowired
@@ -55,7 +52,7 @@ public class HomeController {
         return modelAndView;
     }
 
-    //@Secured(value={"1", "0"})
+//    @Secured(value={"1", "0"})
     @GetMapping("/myBasket")
     public ModelAndView getBasketPage(){
         ModelAndView modelAndView = new ModelAndView("myBasket");
@@ -63,13 +60,12 @@ public class HomeController {
         modelAndView.addObject(productList);
         return modelAndView;
     }
-
+//    @Secured(value={"1", "0"})
     @PostMapping("/myBasket")
     public ModelAndView addProductInBasket(@RequestParam("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         Product product = productService.findById(id);
         basketService.addInBasket(product);
-        modelAndView.addObject("user", currentUser.getUser());
         modelAndView.setViewName("redirect:myBasket");
         return modelAndView;
     }
@@ -91,12 +87,13 @@ public class HomeController {
     }
 
     @PostMapping("/myBasket/pay")
-    public ModelAndView payProductInBasket(Set<Product> productList, User user){
-        ModelAndView modelAndView = new ModelAndView("myBasket");
-        Order order = basketService.orderMapping(productList, user);
+    public ModelAndView payProductInBasket(){
+        ModelAndView modelAndView = new ModelAndView();
+        Order order = basketService.orderMapping();
         orderService.save(order);
         basketService.clearBasket();
         modelAndView.addObject("successMessage", "Заказ сформирован и оплачен");
+        modelAndView.setViewName("home");
         return modelAndView;
     }
 

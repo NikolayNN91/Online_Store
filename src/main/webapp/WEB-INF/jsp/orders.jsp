@@ -11,7 +11,6 @@
 	<ul class='list' style='list-style-type:none'>
 		<li><a href="/admin">Administration</a></li>
 		<li><a href="/admin/product_add">Add products</a></li>
-		<li><a href="/admin/product_update">Change products</a></li>
 		<li><a href="/admin/orders">Orders</a></li>
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/home">Home</a></li>

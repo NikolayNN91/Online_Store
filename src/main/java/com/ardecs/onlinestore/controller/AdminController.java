@@ -51,12 +51,12 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/order")
+    @PostMapping("/order")
     public ModelAndView closeOrder(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         orderService.deleteById(id);
         modelAndView.addObject("message", "Заказ обработан и удален из базы данных");
-        modelAndView.setViewName("order");
+        modelAndView.setViewName("admin");
         return modelAndView;
     }
 
@@ -79,8 +79,8 @@ public class AdminController {
     public ModelAndView productAdd(Product product) {
         ModelAndView modelAndView = new ModelAndView();
         productService.save(product);
-        modelAndView.addObject("message", "Новый продукт добавлен в общий список продуктов");
-        modelAndView.setViewName("redirect:product?id={product.getId()}");
+        modelAndView.addObject("message", "Продукт " + product.getId() + " добавлен");
+        modelAndView.setViewName("admin");
         return modelAndView;
     }
 
@@ -88,8 +88,8 @@ public class AdminController {
     public ModelAndView productChange(Product product) {
         ModelAndView modelAndView = new ModelAndView();
         productService.save(product);
-        modelAndView.addObject("message", "Продукт" + product.getId() + "обновлен");
-        modelAndView.setViewName("product_update");
+        modelAndView.addObject("message", "Продукт " + product.getId() + " обновлен");
+        modelAndView.setViewName("admin");
         return modelAndView;
     }
 

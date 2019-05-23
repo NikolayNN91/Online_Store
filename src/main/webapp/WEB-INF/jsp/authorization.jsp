@@ -25,15 +25,11 @@
                 <div align=center>
                     Login:<br>
                     <input type="text" name="username" placeholder="Введите логин"/><br>
-
-                    ${loginMessage}
                 </div><br>
 
                 <div align=center>
                     Password:<br>
                     <input type="password" name="password" placeholder="Введите пароль"/><br>
-
-                    ${passwordMessage}
                 </div><br><br>
 
                 <div align=center>
@@ -44,6 +40,12 @@
             <div align=center>
                 ${error}
             </div>
-		</form>
+		</form><br><br>
+
+        <form method="POST" action="logout">
+                <div align=center>
+                    <button id="logout">LogOut</button>
+                </div>
+        </form>
 </body>
 </html>

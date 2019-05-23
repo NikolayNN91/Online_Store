@@ -21,6 +21,10 @@
 	    ${helloMessage}
 	</h1>
 
+	<div>
+	    ${successMessage}
+	</div>
+
     <c:forEach items="${productList}" var="product">
         <a href="/product?id=${product.id}">${product.type}</a>
         <br>

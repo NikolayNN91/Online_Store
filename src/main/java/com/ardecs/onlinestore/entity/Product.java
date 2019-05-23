@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
-//@Component
 @Entity
 @Table(name = "Products")
 public class Product {

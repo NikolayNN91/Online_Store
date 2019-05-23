@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -25,6 +26,7 @@ import java.util.Set;
 @SpringBootApplication//(exclude = { SecurityAutoConfiguration.class })
 @ComponentScan(basePackages = "com.ardecs.onlinestore")
 @EnableJpaRepositories(basePackages = "com.ardecs.onlinestore.repository")
+//@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class OnlineStoreApplication {
 
     public static void main(String[] args) {

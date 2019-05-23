@@ -11,7 +11,6 @@
         <ul class='list' style='list-style-type:none'>
             <li><a href="/admin">Administration</a></li>
             <li><a href="/admin/product_add">Add products</a></li>
-            <li><a href="/admin/product_update">Change products</a></li>
             <li><a href="/admin/orders">Orders</a></li>
             <li><a href="/authorization">Authorization</a></li>
             <li><a href="/home">Home</a></li>
@@ -21,6 +20,9 @@
             ${hello}
         </h1>
         <br>
+        <div>
+            ${message}
+        </div>
 
         <c:forEach items="${productList}" var="product">
             <a href="/product?id=${product.id}">${product.type}</a>
@@ -28,9 +30,10 @@
             ${product.price}
             <br>
             <div>
-                <form method="GET" action="update">
+                <form method="GET" action="admin/product_update">
                     <fieldset>
                          <input type="hidden" value="${product.getId()}" name="id" />
+
                         <div>
                             <button id="update">Изменить описание продукта</button>
                         </div>

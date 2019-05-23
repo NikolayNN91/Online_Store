@@ -32,7 +32,7 @@
         ${errorMessage}
     </div>
     <div>
-        <form method="POST" action="myBasket">
+        <form method="POST" action="myBasket/pay">
             <fieldset>
                  <input type="hidden" value="${productList}" name="productList" />
                  <input type="hidden" value="${user}" name="user" />

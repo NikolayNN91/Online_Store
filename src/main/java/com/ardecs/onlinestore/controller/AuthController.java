@@ -1,6 +1,7 @@
 package com.ardecs.onlinestore.controller;
 
 import com.ardecs.onlinestore.config.WebSecurityConfiguration;
+import com.ardecs.onlinestore.entity.RegUser;
 import com.ardecs.onlinestore.entity.User;
 import com.ardecs.onlinestore.repository.UserJpaRepository;
 import com.ardecs.onlinestore.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
@@ -26,14 +28,16 @@ import java.util.Objects;
 public class AuthController {
 
     @Autowired
-    UserJpaRepository userJpaRepository;
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private UserJpaRepository userJpaRepository;
 
     @Autowired
-    WebSecurityConfiguration.CustomUserDetailService userDetailsService;
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private WebSecurityConfiguration.CustomUserDetailService userDetailsService;
 
 
     @GetMapping("/authorization")
@@ -43,10 +47,11 @@ public class AuthController {
         modelAndView.addObject("user", new User());
         return modelAndView;
     }
-//
+
+    //
     @PostMapping("/authorization")
-    public ModelAndView authorizationUser(User user) {
-            System.out.println("********************************************** POST ******************************************");
+    public @ResponseBody ModelAndView authorizationUser(String username, String password) {
+        System.out.println("********************************************** POST ******************************************");
         ModelAndView modelAndView = new ModelAndView("redirect:home");
 //////        //modelAndView.addObject("user", user);
         return modelAndView;
@@ -60,7 +65,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView registrationUser(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
+    public ModelAndView registrationUser(@Validated @ModelAttribute("user")RegUser regUser, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView("redirect:home");
 
         if (bindingResult.hasErrors()) {
@@ -68,27 +73,17 @@ public class AuthController {
             modelAndView.setViewName("registration");
 
         } else {
-            {
-                String encoderPassword = passwordEncoder.encode(user.getPassword());
-
-                if (userJpaRepository.existsById(user.getLogin())) {
-                    throw new IllegalArgumentException("User already registered");
-                }
-
-                userService.save(user);
-                userService.updatePasswordByLogin(encoderPassword, user.getLogin());
-            }
-
+            userService.register(regUser);
         }
         return modelAndView;
     }
 
-    @GetMapping("/logout")
-    public ModelAndView getLogout() {
-        ModelAndView modelAndView = new ModelAndView("redirect:authorization");
-        //todo - оборвать сессию
-        modelAndView.addObject("user", new User());
-        return modelAndView;
-    }
+//    @GetMapping("/logout")
+//    public ModelAndView getLogout() {
+//        ModelAndView modelAndView = new ModelAndView("redirect:authorization");
+//        //todo - оборвать сессию
+//        modelAndView.addObject("user", new User());
+//        return modelAndView;
+//    }
 
 }

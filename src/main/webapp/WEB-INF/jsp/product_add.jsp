@@ -11,7 +11,6 @@
 	<ul class='list' style='list-style-type:none'>
 		<li><a href="/admin">Administration</a></li>
 		<li><a href="/admin/product_add">Add products</a></li>
-		<li><a href="/admin/product_update">Change products</a></li>
 		<li><a href="/admin/orders">Orders</a></li>
 		<li><a href="/authorization">Authorization</a></li>
 		<li><a href="/home">Home</a></li>
@@ -28,15 +27,15 @@
             </div><br>
             <div align=center>
                 Цена:<br>
-                <input type="text" name="type" placeholder="Введите стоимость продукта"/><br>
+                <input type="text" name="price" placeholder="Введите стоимость продукта"/><br>
             </div><br>
             <div align=center>
                 Количество на складе:<br>
-                <input type="text" name="type" placeholder="Введите количество продукта"/><br>
+                <input type="text" name="amountOfProduct" placeholder="Введите количество продукта"/><br>
             </div><br>
             <div align=center>
                 Производитель:<br>
-                <input type="text" name="type" placeholder="Введите производителя продукта"/><br>
+                <input type="text" name="manufacturer" placeholder="Введите производителя продукта"/><br>
             </div><br>
 
             <div align=center>

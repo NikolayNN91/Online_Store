@@ -1,5 +1,6 @@
 package com.ardecs.onlinestore.repository;
 
+import com.ardecs.onlinestore.entity.RegUser;
 import com.ardecs.onlinestore.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

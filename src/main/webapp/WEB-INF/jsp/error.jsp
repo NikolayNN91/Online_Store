@@ -9,6 +9,11 @@
 </head>
 <body>
     <div>
+        <h1>
+            Error page
+        </h1>
+    </div>
+    <div>
         ${errorMessage}
     </div>
 
