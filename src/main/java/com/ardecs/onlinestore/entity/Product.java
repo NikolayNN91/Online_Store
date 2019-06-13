@@ -1,10 +1,13 @@
 package com.ardecs.onlinestore.entity;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Entity
@@ -27,6 +30,7 @@ public class Product {
     @Column(name = "amount_of_product")
     private int amountOfProduct;
 
-    public Product() {}
+    public Product() {
+    }
 
 }

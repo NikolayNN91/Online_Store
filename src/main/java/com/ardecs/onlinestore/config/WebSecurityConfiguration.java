@@ -42,16 +42,11 @@ import java.util.*;
 
 
 @Configuration
-//@EnableWebMvc
 @EnableWebSecurity
-//@ComponentScan(basePackages = "com.ardecs.onlinestore.config")
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
-//
-//    @Autowired
-//    private CurrentUser currentUser;
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -59,19 +54,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
 
-//auth.authenticationProvider(authenticationProvider());
-//        auth.
-//        auth    .jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery("select login, password"
-//                                    +  "from users where login=?")
-//                .authoritiesByUsernameQuery("select login, is_admin"
-//                                       +  "from users where login=?")
-//                .passwordEncoder(passwordEncoder());
-//
-
-//        auth.inMemoryAuthentication()
-//                .withUser("login").password("password").roles("1");
     }
 
     @Override
@@ -81,24 +63,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("1")
                 .antMatchers("/myBasket", "/myBasket/**").hasRole("0")
                 .antMatchers("/", "/home", "/registration", "/product", "/contacts", "/css/**").permitAll()
-//                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
                 .formLogin()
-                //.loginPage("/login")
                 .loginPage("/authorization")
                 .failureForwardUrl("/error")
-//                .successForwardUrl("/home")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/authorization")
-                //.logoutSuccessHandler(logoutSuccessHandler)
                 .invalidateHttpSession(true)     //true by default анулировать HttpSession
-                //.addLogoutHandler(logoutHandler)
-                //.deleteCookies(cookieNamesToClear)
                 .permitAll();
 
     }
@@ -106,7 +82,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
 
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new BCryptPasswordEncoder();
     }
 
@@ -114,14 +89,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Component
     public class CustomUserDetailService implements UserDetailsService {
 
-//        private User user;
-
         @Autowired
         UserJpaRepository userJpaRepository;
-
-//        public User getCurrentUser() {
-//            return user;
-//        }
 
         @Override
         public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -129,7 +98,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             if (user == null) {
                 throw new UsernameNotFoundException("Not exist user with login: " + login);
             }
-//            currentUser.setUser(user);
+
             String role = "ROLE_" + user.getIsAdmin();
             return new org.springframework.security.core.userdetails.User(
                     user.getLogin(),
@@ -140,18 +109,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Component
-//    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.INTERFACES)
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public class CurrentUser {
 
         public Object getUser() {
-//            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-//            if ( principal instanceof UserDetails) {
-//                return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//            } else {
-//                throw new IllegalStateException("Principal is not UserDetails");
-//            }
             return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         }
     }

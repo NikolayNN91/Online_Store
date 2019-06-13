@@ -16,8 +16,8 @@ public class HelloService {
     private static String helloMessage = "Hello, guest!";
 
     public String getHelloMessage() {
-        if(currentUser.getUser() instanceof UserDetails) {
-            helloMessage = "Hello, " + ((UserDetails)currentUser.getUser()).getUsername() + "!";
+        if (currentUser.getUser() instanceof UserDetails) {
+            helloMessage = "Hello, " + ((UserDetails) currentUser.getUser()).getUsername() + "!";
         }
         return helloMessage;
     }

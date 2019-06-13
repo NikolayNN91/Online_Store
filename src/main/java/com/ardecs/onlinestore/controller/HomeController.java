@@ -1,25 +1,15 @@
 package com.ardecs.onlinestore.controller;
 
-import com.ardecs.onlinestore.config.WebSecurityConfiguration;
 import com.ardecs.onlinestore.entity.Order;
 import com.ardecs.onlinestore.entity.Product;
-import com.ardecs.onlinestore.entity.User;
-import com.ardecs.onlinestore.repository.ProductJpaRepository;
-import com.ardecs.onlinestore.repository.UserJpaRepository;
 import com.ardecs.onlinestore.service.BasketService;
 import com.ardecs.onlinestore.service.HelloService;
 import com.ardecs.onlinestore.service.OrderService;
 import com.ardecs.onlinestore.service.ProductService;
-import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,17 +42,16 @@ public class HomeController {
         return modelAndView;
     }
 
-//    @Secured(value={"1", "0"})
     @GetMapping("/myBasket")
-    public ModelAndView getBasketPage(){
+    public ModelAndView getBasketPage() {
         ModelAndView modelAndView = new ModelAndView("myBasket");
         Set<Product> productList = basketService.getProductList();
         modelAndView.addObject(productList);
         return modelAndView;
     }
-//    @Secured(value={"1", "0"})
+
     @PostMapping("/myBasket")
-    public ModelAndView addProductInBasket(@RequestParam("id") int id){
+    public ModelAndView addProductInBasket(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Product product = productService.findById(id);
         basketService.addInBasket(product);
@@ -71,7 +60,7 @@ public class HomeController {
     }
 
     @GetMapping("/product")
-    public ModelAndView getProductPage(@RequestParam("id") int id){
+    public ModelAndView getProductPage(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Product product = productService.findById(id);
         modelAndView.addObject("product", product);
@@ -80,14 +69,14 @@ public class HomeController {
     }
 
     @GetMapping("/contacts")
-    public ModelAndView getContactsPage(){
+    public ModelAndView getContactsPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("contacts");
         return modelAndView;
     }
 
     @PostMapping("/myBasket/pay")
-    public ModelAndView payProductInBasket(){
+    public ModelAndView payProductInBasket() {
         ModelAndView modelAndView = new ModelAndView();
         Order order = basketService.orderMapping();
         orderService.save(order);
